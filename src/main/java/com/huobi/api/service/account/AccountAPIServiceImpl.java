@@ -1,11 +1,13 @@
 package com.huobi.api.service.account;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.huobi.api.request.account.*;
 import com.huobi.api.swaps.HuobiLinearSwapAPIConstants;
 import com.huobi.api.exception.ApiException;
 import com.huobi.api.response.account.*;
 import com.huobi.api.util.HbdmHttpClient;
+import com.huobi.constant.HuobiApiConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +18,14 @@ import java.util.Map;
 
 public class AccountAPIServiceImpl implements AccountAPIService {
 
-    String api_key = ""; // huobi申请的apiKey
-    String secret_key = ""; // huobi申请的secretKey
-    String url_prex = "https://api.hbdm.com";
+    String api_key = HuobiApiConstants.API_KEY; // huobi申请的apiKey
+    String secret_key = HuobiApiConstants.SECRET_KEY; // huobi申请的secretKey
+    String url_prex = HuobiApiConstants.URL_PREX;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    public AccountAPIServiceImpl() {
+    }
     public AccountAPIServiceImpl(String api_key, String secret_key) {
         this.api_key = api_key;
         this.secret_key = secret_key;
@@ -37,7 +41,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase().toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_ACCOUNT_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapAccountInfoResponse response = JSON.parseObject(body, SwapAccountInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -58,7 +62,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase().toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_POSITION_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapPositionInfoResponse response = JSON.parseObject(body, SwapPositionInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -77,7 +81,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", contractCode.toUpperCase().toUpperCase());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_ACCOUNT_POSITION_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapAccountPositionInfoResponse response = JSON.parseObject(body, SwapAccountPositionInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -98,7 +102,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase().toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_SUB_ACCOUNT_LIST, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapSubAccountListResponse response = JSON.parseObject(body, SwapSubAccountListResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -120,7 +124,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             }
             params.put("sub_uid", subUid);
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_SUB_ACCOUNT_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapSubAccountInfoResponse response = JSON.parseObject(body, SwapSubAccountInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -142,7 +146,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             }
             params.put("sub_uid", subUid);
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_SUB_POSITION_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapSubPositionInfoResponse response = JSON.parseObject(body, SwapSubPositionInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -176,7 +180,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", request.getContractCode().toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_FINANCIAL_RECORD, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapFinancialRecordResponse response = JSON.parseObject(body, SwapFinancialRecordResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -198,7 +202,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             }
             params.put("order_price_type", orderPriceType);
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_ORDER_LIMIT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapOrderLimitResponse response = JSON.parseObject(body, SwapOrderLimitResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -219,7 +223,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_FEE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapFeeResponse response = JSON.parseObject(body, SwapFeeResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -240,7 +244,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_TRANSFER_LIMIT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTransferLimitResponse response = JSON.parseObject(body, SwapTransferLimitResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -261,7 +265,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_POSITION_LIMIT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapPositionLimitResponse response = JSON.parseObject(body, SwapPositionLimitResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -285,7 +289,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             params.put("amount", request.getAmount());
             params.put("type", request.getType());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_MASTER_SUB_TRANSFER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMasterSubTransferResponse response = JSON.parseObject(body, SwapMasterSubTransferResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -314,7 +318,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("page_size", request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_MASTER_SUB_TRANSFER_RECORD, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMasterSubTransferRecordResponse response = JSON.parseObject(body, SwapMasterSubTransferRecordResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -336,7 +340,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             params.put("to_margin_account", toMarginAccount);
             params.put("amount", amount);
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_TRANSFER_INNER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTransferInnerResponse response = JSON.parseObject(body, SwapTransferInnerResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -354,7 +358,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
         Map<String, Object> params = new HashMap<>();
         try {
             body = HbdmHttpClient.getInstance().doGetKey(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_API_TRADING_STATUS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapApiTradingStatusResponse response = JSON.parseObject(body, SwapApiTradingStatusResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -374,7 +378,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_AVAILABLE_LEVEL_RATE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapAvailableLevelRateResponse response = JSON.parseObject(body, SwapAvailableLevelRateResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -404,7 +408,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("page_size", request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_USER_SETTLEMENT_RECORDS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapUserSettlementRecordsResponse response = JSON.parseObject(body, SwapUserSettlementRecordsResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -440,7 +444,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("direct", request.getDirect());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_FINANCIAL_RECORD_EXACT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapFinancialRecordExactResponse response = JSON.parseObject(body, SwapFinancialRecordExactResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -459,7 +463,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
             params.put("sub_uid", subUid);
             params.put("sub_auth", subAuth);
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_SUB_AUTH, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapSubAuthResponse response = JSON.parseObject(body, SwapSubAuthResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -483,7 +487,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("page_size", pageSize);
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_SUB_ACCOUNT_INFO_LIST, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapSubAccountInfoListResponse response = JSON.parseObject(body, SwapSubAccountInfoListResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -503,7 +507,7 @@ public class AccountAPIServiceImpl implements AccountAPIService {
                 params.put("valuation_asset",ValuationAsset.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapAPIConstants.SWAP_BALANCE_VALUATION, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapBalanceValuationResponse response = JSON.parseObject(body, SwapBalanceValuationResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;

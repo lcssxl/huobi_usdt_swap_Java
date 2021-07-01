@@ -359,8 +359,8 @@ public class CrossTradeAPITest implements BaseTest {
     public void swapCrossTrackOrders(){
         SwapTrackOrderRequest request=SwapTrackOrderRequest.builder()
                 .contractCode("btc-usdt")
-                .direction("buy")
-                .offset("open")
+                .direction(DirectionEnum.BUY)
+                .offset(OffsetEnum.OPEN)
                 .leverRate(5)
                 .volume(BigDecimal.valueOf(1))
                 .activePrice(BigDecimal.valueOf(390))

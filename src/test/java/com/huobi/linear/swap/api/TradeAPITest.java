@@ -354,8 +354,8 @@ public class TradeAPITest implements BaseTest {
     public void swapTrackOrders(){
         SwapTrackOrderRequest request=SwapTrackOrderRequest.builder()
                 .contractCode("BTC-usdt")
-                .direction("buy")
-                .offset("open")
+                .direction(DirectionEnum.BUY)
+                .offset(OffsetEnum.OPEN)
                 .leverRate(5)
                 .volume(BigDecimal.valueOf(1))
                 .activePrice(BigDecimal.valueOf(48000))

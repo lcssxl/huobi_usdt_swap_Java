@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.huobi.api.exception.HttpRequestException;
 import okhttp3.*;
 import org.apache.commons.collections4.MapUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.*;
 import java.io.IOException;
@@ -15,6 +17,8 @@ import java.util.stream.Collectors;
 public class HbdmHttpClient {
 
     private OkHttpClient httpClient;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
 
     static final MediaType JSON_TYPE = MediaType.parse("application/json");
@@ -43,6 +47,7 @@ public class HbdmHttpClient {
             });
         }
         reqBuild.url(urlBuilder.build());
+        logger.debug("get url:{}", urlBuilder.build().url());
 
         Response response = null;
         try {
@@ -70,6 +75,7 @@ public class HbdmHttpClient {
             RequestBody body = RequestBody.create(JSON_TYPE, JSON.toJSONString(params));
             Request.Builder builder = new Request.Builder().url(uri + "?" + toQueryString(params)).post(body);
             Request request = builder.build();
+            logger.debug("post url:{}", request.url());
             Response response = httpClient.newCall(request).execute();
             return response.body().string();
         } catch (IOException e) {

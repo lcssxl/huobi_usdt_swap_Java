@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class AccountAPITest implements BaseTest {
 
 
-    AccountAPIServiceImpl huobiAPIService = new AccountAPIServiceImpl("", "");
+    AccountAPIServiceImpl huobiAPIService = new AccountAPIServiceImpl();
 
     @Test
     public void getSwapAccountInfoResponse() {

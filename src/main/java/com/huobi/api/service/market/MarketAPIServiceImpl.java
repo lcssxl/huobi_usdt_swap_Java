@@ -1,5 +1,6 @@
 package com.huobi.api.service.market;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.huobi.api.swaps.HuobiLinearSwapAPIConstants;
 import com.huobi.api.exception.ApiException;
@@ -32,7 +33,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("support_margin_mode", supportMarginMode);
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_CONTRACT_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapContractInfoResponse response = JSON.parseObject(body, SwapContractInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -54,7 +55,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_INDEX, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapIndexResponse response = JSON.parseObject(body, SwapIndexResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -73,7 +74,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", contractCode.toUpperCase());
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_PRICE_LIMIT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapPriceLimitResponse response = JSON.parseObject(body, SwapPriceLimitResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -94,7 +95,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_OPEN_INTEREST, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapOpenInterestResponse response = JSON.parseObject(body, SwapOpenInterestResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -113,7 +114,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             params.put("contract_code", contractCode.toUpperCase());
             params.put("type", type);
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_MARKET_DEPTH, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMarketDepthResponse response = JSON.parseObject(body, SwapMarketDepthResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -141,7 +142,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("from", request.getFrom());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_MARKET_HISTORY_KLINE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMarketHistoryKlineResponse response = JSON.parseObject(body, SwapMarketHistoryKlineResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -160,7 +161,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", contractCode.toUpperCase());
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_MARKET_DETAIL_MERGED, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMarketDetailMergedResponse response = JSON.parseObject(body, SwapMarketDetailMergedResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -179,7 +180,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", contractCode.toUpperCase());
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_MARKET_TRADE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMarketTradeResponse response = JSON.parseObject(body, SwapMarketTradeResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -200,7 +201,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("size", size);
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_MARKET_HISTORY_TRADE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMarketHistoryTradeResponse response = JSON.parseObject(body, SwapMarketHistoryTradeResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -217,7 +218,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", contractCode.toUpperCase());
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_RISK_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapRiskInfoResponse response = JSON.parseObject(body, SwapRiskInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -241,7 +242,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("page_size", pageSize);
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_INSURANCE_FUND, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapInsuranceFundResponse response = JSON.parseObject(body, SwapInsuranceFundResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -261,7 +262,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_ADJUSTFACTOR, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapAdjustfactorResponse response = JSON.parseObject(body, SwapAdjustfactorResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -286,7 +287,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("amount_type", amountType);
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_HIS_OPEN_INTEREST, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapHisOpenInterestResponse response = JSON.parseObject(body, SwapHisOpenInterestResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -305,7 +306,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             params.put("contract_code", contractCode.toUpperCase());
             params.put("period", period);
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_ELITE_ACCOUNT_RATIO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapEliteAccountRatioResponse response = JSON.parseObject(body, SwapEliteAccountRatioResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -324,7 +325,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             params.put("contract_code", contractCode.toUpperCase());
             params.put("period", period);
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_ELITE_POSITION_RATIO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapElitePositionRatioResponse response = JSON.parseObject(body, SwapElitePositionRatioResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -344,7 +345,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_API_STATE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapApiStateResponse response = JSON.parseObject(body, SwapApiStateResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -362,7 +363,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             Map<String, Object> params = new HashMap<>();
             params.put("contract_code", contractCode.toUpperCase());
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_FUNDING_RATE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapFundingRateResponse response = JSON.parseObject(body, SwapFundingRateResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -385,7 +386,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("page_size", pageSize);
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_HISTORICAL_FUNDING_RATE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapHistoricalFundingRateResponse response = JSON.parseObject(body, SwapHistoricalFundingRateResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -411,7 +412,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("page_size", request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_LIQUIDATION_ORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapLiquidationOrdersResponse response = JSON.parseObject(body, SwapLiquidationOrdersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -431,7 +432,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             params.put("period", period);
             params.put("size", size);
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.LINEAR_SWAP_PREMIUM_INDEX_KLINE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             LinearSwapPremiumIndexKlineResponse response = JSON.parseObject(body, LinearSwapPremiumIndexKlineResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -451,7 +452,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             params.put("period", period);
             params.put("size", size);
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.LINEAR_SWAP_ESTIMATED_RATE_KLINE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             LinearSwapEstimatedRateKlineResponse response = JSON.parseObject(body, LinearSwapEstimatedRateKlineResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -474,7 +475,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("basis_price_type", request.getBasisPriceType());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.LINEAR_SWAP_BASIS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             LinearSwapBasisResponse response = JSON.parseObject(body, LinearSwapBasisResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -494,7 +495,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_ESTIMATED_SETTLEMENT_PRICE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapEstimatedSettlementPriceResponse response = JSON.parseObject(body, SwapEstimatedSettlementPriceResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -514,7 +515,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.BATCH_MERGED, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             BatchMergedResponse response = JSON.parseObject(body, BatchMergedResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -534,7 +535,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
             params.put("period", period);
             params.put("size", size);
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.LINEAR_SWAP_MARK_PRICE_KLINE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             LinearSwapMarkPriceKlineResponse response = JSON.parseObject(body, LinearSwapMarkPriceKlineResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -554,7 +555,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_LADDER_MARGIN, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapLadderMarginResponse response = JSON.parseObject(body, SwapLadderMarginResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -574,7 +575,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.SWAP_BATCH_FUNDING_RATE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapBatchFundingRateResponse response = JSON.parseObject(body, SwapBatchFundingRateResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -594,7 +595,7 @@ public class MarketAPIServiceImpl implements MarketAPIService {
                 params.put("contract_code", contractCode.toUpperCase());
             }
             body = HbdmHttpClient.getInstance().doGet(url_prex + HuobiLinearSwapAPIConstants.MARKET_BBO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             MarketBboResponse response = JSON.parseObject(body, MarketBboResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;

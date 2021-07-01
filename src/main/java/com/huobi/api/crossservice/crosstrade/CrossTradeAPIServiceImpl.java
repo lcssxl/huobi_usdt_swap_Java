@@ -1,5 +1,6 @@
 package com.huobi.api.crossservice.crosstrade;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.huobi.api.crossrequest.trade.*;
 import com.huobi.api.crossresponse.trade.*;
@@ -8,6 +9,7 @@ import com.huobi.api.request.trade.*;
 import com.huobi.api.response.trade.*;
 import com.huobi.api.swapcross.HuobiLinearSwapCrossAPIConstants;
 import com.huobi.api.util.HbdmHttpClient;
+import com.huobi.constant.HuobiApiConstants;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,12 +23,14 @@ import java.util.Map;
 public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
 
 
-    String api_key = ""; // huobi申请的apiKey
-    String secret_key = ""; // huobi申请的secretKey
-    String url_prex = "https://api.hbdm.com";
+    String api_key = HuobiApiConstants.API_KEY; // huobi申请的apiKey
+    String secret_key = HuobiApiConstants.SECRET_KEY; // huobi申请的secretKey
+    String url_prex = HuobiApiConstants.URL_PREX;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
+    public CrossTradeAPIServiceImpl() {
+    }
     public CrossTradeAPIServiceImpl(String api_key, String secret_key) {
         this.api_key = api_key;
         this.secret_key = secret_key;
@@ -70,7 +74,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("sl_order_price_type", request.getSlOrderPriceType());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_ORDER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossOrderResponse response = JSON.parseObject(body, SwapCrossOrderResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -130,7 +134,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("orders_data", listMap);
 
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_BATCHORDER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossBatchorderResponse response = JSON.parseObject(body, SwapCrossBatchorderResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -158,7 +162,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             }
             params.put("contract_code", request.getContractCode().toUpperCase());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_CANCEL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossCancelResponse response = JSON.parseObject(body, SwapCrossCancelResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -187,7 +191,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("offset", request.getOffset());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_CANCELALL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossCancelallResponse response = JSON.parseObject(body, SwapCrossCancelallResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -212,7 +216,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("order_id", request.getOrderId());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_ORDER_INFO, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossOrderInfoResponse response = JSON.parseObject(body, SwapCrossOrderInfoResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -247,7 +251,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("page_size", request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_ORDER_DETAIL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossOrderDetailResponse response = JSON.parseObject(body, SwapCrossOrderDetailResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -281,7 +285,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             }
             params.put("contract_code", request.getContractCode().toUpperCase());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_OPENORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossOpenordersResponse response = JSON.parseObject(body, SwapCrossOpenordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -313,7 +317,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("sort_by", request.getSortBy());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_HISORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossHisordersResponse response = JSON.parseObject(body, SwapCrossHisordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -340,7 +344,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("page_size", request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_MATCHRESULTS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossMatchresultsResponse response = JSON.parseObject(body, SwapCrossMatchresultsResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -367,7 +371,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("client_order_id", request.getClientOrderId());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_LIGHTNING_CLOSE_POSITION, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossLightningClosePositionResponse response = JSON.parseObject(body, SwapCrossLightningClosePositionResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -399,7 +403,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("lever_rate", request.getLeverRate());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRIGGER_ORDER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossTriggerOrderResponse response = JSON.parseObject(body, SwapCrossTriggerOrderResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -418,7 +422,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("contract_code", request.getContractCode().toUpperCase());
             params.put("order_id", request.getOrderId());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRIGGER_CANCEL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossTriggerCancelResponse response = JSON.parseObject(body, SwapCrossTriggerCancelResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -443,7 +447,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("offset", request.getOffset());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRIGGER_CANCELALL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossTriggerCancelallResponse response = JSON.parseObject(body, SwapCrossTriggerCancelallResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -470,7 +474,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("trade_type", request.getTradeType());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRIGGER_OPENORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossTriggerOpenordersResponse response = JSON.parseObject(body, SwapCrossTriggerOpenordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -501,7 +505,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("sort_by", request.getSortBy());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRIGGER_HISORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossTriggerHisordersResponse response = JSON.parseObject(body, SwapCrossTriggerHisordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -520,7 +524,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("contract_code", contractCode.toUpperCase());
             params.put("lever_rate", leverRate);
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_SWITCH_LEVER_RATE, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapCrossSwitchLeverRateResponse response = JSON.parseObject(body, SwapCrossSwitchLeverRateResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -558,7 +562,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("sl_order_price_type", request.getSlOrderPriceType());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TPSL_ORDER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTpslOrderResponse response = JSON.parseObject(body, SwapTpslOrderResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -577,7 +581,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("contract_code", request.getContractCode().toUpperCase());
             params.put("order_id", request.getOrderId());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TPSL_CANCEL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTpslCancelResponse response = JSON.parseObject(body, SwapTpslCancelResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -598,7 +602,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("direction", request.getDirection());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TPSL_CANCELALL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTpslCancelallResponse response = JSON.parseObject(body, SwapTpslCancelallResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -625,7 +629,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("trade_type", request.getTradeType());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TPSL_OPENORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTpslOpenordersResponse response = JSON.parseObject(body, SwapTpslOpenordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -654,7 +658,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("sort_by", request.getSortBy());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TPSL_HISORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTpslHisordersResponse response = JSON.parseObject(body, SwapTpslHisordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -673,7 +677,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("contract_code", request.getContractCode().toUpperCase());
             params.put("order_id", request.getOrderId());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_RELATION_TPSL_ORDER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapRelationTpslOrderResponse response = JSON.parseObject(body, SwapRelationTpslOrderResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -712,7 +716,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("direct", request.getDirect());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_HISORDERS_EXACT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapHisordersExactResponse response = JSON.parseObject(body, SwapHisordersExactResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -746,7 +750,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("direct", request.getDirect());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_MATCHRESULTS_EXACT, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapMatchresultsExactResponse response = JSON.parseObject(body, SwapMatchresultsExactResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -773,7 +777,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("active_price", request.getActivePrice());
             params.put("order_price_type", request.getOrderPriceType());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRACK_ORDER, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTrackOrderResponse response = JSON.parseObject(body, SwapTrackOrderResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())) {
                 return response;
@@ -792,7 +796,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
             params.put("contract_code", request.getContractCode().toUpperCase());
             params.put("order_id", request.getOrderId());
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRACK_CANCEL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTrackCancelResponse response = JSON.parseObject(body, SwapTrackCancelResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())){
                 return response;
@@ -816,7 +820,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("offset", request.getOffset());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRACK_CANCELALL, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTrackCancelallResponse response = JSON.parseObject(body, SwapTrackCancelallResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())){
                 return response;
@@ -843,7 +847,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("page_size",request.getPageSize());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRACK_OPENORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTrackOpenordersResponse response = JSON.parseObject(body, SwapTrackOpenordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())){
                 return response;
@@ -873,7 +877,7 @@ public class CrossTradeAPIServiceImpl implements CrossTradeAPIService {
                 params.put("sort_by",request.getSortBy());
             }
             body = HbdmHttpClient.getInstance().doPost(api_key, secret_key, url_prex + HuobiLinearSwapCrossAPIConstants.SWAP_CROSS_TRACK_HISORDERS, params);
-            logger.debug("body:{}", body);
+            logger.debug("body:{}", JSONUtil.toJsonPrettyStr(body));
             SwapTrackHisordersResponse response = JSON.parseObject(body, SwapTrackHisordersResponse.class);
             if ("ok".equalsIgnoreCase(response.getStatus())){
                 return response;

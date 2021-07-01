@@ -13,6 +13,10 @@
     <groupId>com.huobi.linear.swap.api</groupId>
     <artifactId>huobi-linear-swap-api</artifactId>
     <version>1.0.1</version>
+
+    <properties>
+        <hutool-all.version>5.3.8</hutool-all.version>
+    </properties>
     
     <dependencies>
 
@@ -93,6 +97,13 @@
             <groupId>org.java-websocket</groupId>
             <artifactId>Java-WebSocket</artifactId>
             <version>1.4.0</version>
+        </dependency>
+
+        <!--加载hutool-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
         </dependency>
 
     </dependencies>
